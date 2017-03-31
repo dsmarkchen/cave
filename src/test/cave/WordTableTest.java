@@ -4,6 +4,7 @@ import com.cave.Motion;
 import com.cave.WordTable;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class WordTableTest {
@@ -18,17 +19,24 @@ public class WordTableTest {
     public void findSouth() throws Exception {
         WordTable wordTable = new WordTable();
         int result = wordTable.find("south");
-        int result2 = wordTable.find("s");
-        assertEquals(result, result2);
-
+        assertTrue(result >0);
     }
 
     @Test
     public void findObject() throws Exception {
         WordTable wordTable = new WordTable();
         int result = wordTable.find("key");
-        int result2 = wordTable.find("keys");
-        assertEquals(result, result2);
+        assertTrue(result>0);
+    }
+
+
+    @Test
+    public void findAction() throws Exception {
+        WordTable wordTable = new WordTable();
+        int take = wordTable.find("take");
+        assertTrue(take >0);
+        int carry = wordTable.find("carry");
+        assertTrue(carry>0);
     }
 
 }

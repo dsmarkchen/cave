@@ -1,36 +1,23 @@
 package com.cave;
 
 public enum Location {
-    ROAD("Road", "", 1, new Instruction()),
-    HILL("You have walked up a hill still the forest.  The road slopes back\n" +
-            "down the other side of the hill.  There is a building in the distance.",
-            "You're at hill in road.", 2, new Instruction());
+    inhand(-1), limbo(0),
+    road(1), hill(2), house(3), valley(4), forest(5), woods(6), slit(7), outside(8);
+//    inside, cobbles, debris, awk, bird, spit,
+//    emist, nugget, efiss, wfiss, wmist,
+//    like1, like2, like3, like4, like5, like6, like7, like8, like9, like10, like11, like12, like13, like14,
+//    brink, elong, wlong,
+//    diff0, diff1, diff2, diff3, diff4, diff5, diff6, diff7, diff8, diff9, diff10,
+//    pony, cross, hmk, west, south, ns, y2, jumble, windoe,
 
-    Location(String longDescription, String shortDescription, Integer flag, Instruction instruction) {
-        _longDescription = longDescription;
-        _shortDesciption = shortDescription;
-        _flag = flag;
-        _instruction = instruction;
+//    crack,neck,lose,cant,climb,check,snaked,thru,duck,sewer,upnout,didit,
+//    ppass,pdrop,troll;
+    private int _index;
+    private Location(int index) {
+        _index = index;
+    }
+    public int getIndex() {
+        return _index;
     }
 
-    public String get_longDescription() {
-        return _longDescription;
-    }
-
-    public String get_shortDesciption() {
-        return _shortDesciption;
-    }
-
-    public Integer get_flag() {
-        return _flag;
-    }
-
-    public Instruction get_instruction() {
-        return _instruction;
-    }
-
-    private String _longDescription;
-    private String _shortDesciption;
-    private Integer _flag;
-    private Instruction _instruction;
 }

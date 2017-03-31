@@ -4,6 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("hello world");
-        System.out.println(Location.HILL.get_longDescription());
+        Controller controller = new Controller();
+        controller.build();
+        Location loc = Location.road;
+        System.out.println(controller.desc(loc));
+
+
     }
 }

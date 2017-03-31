@@ -1,16 +1,14 @@
 package com.cave;
 
 
+import com.cave.hash.HashMap;
 import com.cave.word.WordType;
 
-import java.util.Hashtable;
-
 public class WordTable {
-    private Hashtable<String, Integer> _hashTable;
-    private WordType _wordType;
+    private HashMap _hashMap;
 
     public WordTable() {
-        _hashTable = new Hashtable<String, Integer>();
+        _hashMap = new HashMap();
         build();
     }
 
@@ -18,25 +16,40 @@ public class WordTable {
         buildMotions();
 
         buildObjects();
+
+        buildActions();
     }
 
     private void buildMotions() {
-        _hashTable.put("north", Motion.N.hashCode());
-        _hashTable.put("n", Motion.N.hashCode());
-        _hashTable.put("south", Motion.S.hashCode());
-        _hashTable.put("s", Motion.S.hashCode());
+        WordType wordType = WordType.motion_type;
+        _hashMap.put("north", wordType, Motion.N.hashCode());
+        _hashMap.put("n", wordType, Motion.N.hashCode());
+        _hashMap.put("south", wordType, Motion.S.hashCode());
+        _hashMap.put("s", wordType, Motion.S.hashCode());
     }
 
     private void buildObjects() {
-        _hashTable.put("key", Object.KEYS.hashCode());
-        _hashTable.put("keys", Object.KEYS.hashCode());
-        _hashTable.put("lamp", Object.LAMP.hashCode());
-        _hashTable.put("lante", Object.LAMP.hashCode());
-        _hashTable.put("head1", Object.LAMP.hashCode());
+        WordType wordType = WordType.object_type;
+        _hashMap.put("key", wordType, Object.KEYS.hashCode());
+        _hashMap.put("keys", wordType, Object.KEYS.hashCode());
+        _hashMap.put("lamp", wordType, Object.LAMP.hashCode());
+        _hashMap.put("lante", wordType, Object.LAMP.hashCode());
+        _hashMap.put("head1", wordType, Object.LAMP.hashCode());
+
+    }
+
+    private void buildActions() {
+        WordType wordType = WordType.action_type;
+        _hashMap.put("take", wordType, Action.TAKE.ordinal());
+        _hashMap.put("carry", wordType, Action.TAKE.ordinal());
+        _hashMap.put("keep", wordType, Action.TAKE.ordinal());
 
     }
 
     public int find(String s) {
-        return _hashTable.get(s);
+        int result = _hashMap.get(s);
+        if (result < 0) throw new NullPointerException();
+
+        return result;
     }
 }
