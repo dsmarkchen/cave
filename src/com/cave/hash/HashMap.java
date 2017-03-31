@@ -6,7 +6,6 @@ public class HashMap {
     private final static int HASH_PRIME = 1009;
     private final static int TABLE_SIZE = HASH_PRIME;
 
-
     private HashEntry[] _table;
 
     public HashMap() {
@@ -16,11 +15,24 @@ public class HashMap {
         }
     }
 
+    public int meaning(int index) {
+        return _table[index].get_meaning();
+    }
+
+    public WordType wordType(int index) {
+        return _table[index].get_wordType();
+    }
+
+    public String text(int index) {
+        return _table[index].get_text();
+    }
+
+
     public void put(String text, WordType wordType, int meaning) {
         char[] w;
         int len = text.length();
         w = new char[len];
-        for(int i =0;i<len;i++) {
+        for (int i = 0; i < len; i++) {
             w[i] = text.toCharArray()[i];
         }
         int h;
@@ -38,7 +50,7 @@ public class HashMap {
     }
 
     public int get(String text) {
-        char [] w = new char[5];
+        char[] w = new char[5];
         int len = text.length();
         if (len > 5) len = 5;
         for (int i = 0; i < len; i++)

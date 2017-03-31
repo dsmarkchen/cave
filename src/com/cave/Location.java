@@ -1,9 +1,25 @@
 package com.cave;
 
 public enum Location {
-    inhand(-1), limbo(0),
-    road(1), hill(2), house(3), valley(4), forest(5), woods(6), slit(7), outside(8);
-//    inside, cobbles, debris, awk, bird, spit,
+    inhand(-1),
+    limbo(0),
+
+    road(1),
+    hill(2),
+    house(3),
+    valley(4),
+    forest(5),
+    woods(6),
+    slit(7),
+    outside(8),
+
+    inside(9),
+    cobbles(10),
+    debris(11),
+    awk(12),
+    bird(13),
+    spit(14);
+
 //    emist, nugget, efiss, wfiss, wmist,
 //    like1, like2, like3, like4, like5, like6, like7, like8, like9, like10, like11, like12, like13, like14,
 //    brink, elong, wlong,

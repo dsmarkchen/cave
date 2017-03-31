@@ -2,10 +2,10 @@ package com.cave;
 
 
 public class LocationEntity {
-    private Location _location;
-    private String _longDesc;
-    private String _shortDesc;
-    private int _flag;
+    private final Location _location;
+    private final String _longDesc;
+    private final String _shortDesc;
+    private final int _flag;
     private int _start;
 
     public LocationEntity(Location loc, String longDesc, String shortDesc, int flag, int start) {
