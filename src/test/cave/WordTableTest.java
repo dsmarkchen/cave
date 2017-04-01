@@ -7,11 +7,10 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class WordTableTest {
-
-    @Test(expected = NullPointerException.class)
+    @Test
     public void findTick_returnsNull() throws Exception {
         WordTable wordTable = new WordTable();
-        wordTable.lookup("tickle");
+        assertTrue(wordTable.lookup("tickle") < 0);
     }
 
     @Test

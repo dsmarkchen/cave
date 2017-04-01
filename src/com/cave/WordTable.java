@@ -56,10 +56,8 @@ public class WordTable {
         _hashMap.put("keep", wordType, Action.TAKE.ordinal());
     }
 
-    public int lookup(String s) throws NullPointerException {
+    public int lookup(String s)  {
         int result = _hashMap.get(s);
-        if (result < 0) throw new NullPointerException();
-
         return result;
     }
     public int meaning(int h) {

@@ -1,6 +1,5 @@
 package test.cave.generic;
 
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
@@ -57,7 +56,7 @@ public class FibonacciTest {
                         .withInput(10)
                         .thenExpected(55)
                         .build()
-         };
+        };
         return scenarios;
     }
 
@@ -69,7 +68,6 @@ public class FibonacciTest {
         int input = scenario.input();
         int expected = scenario.expected();
         assertEquals(expected, Fibonacci.compute(input));
-
     }
 
     static class Fibonacci {
@@ -85,7 +83,6 @@ public class FibonacciTest {
             return result;
         }
     }
-
 
     static class Scenario {
         private final String _description;
