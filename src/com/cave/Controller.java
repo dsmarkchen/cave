@@ -1,5 +1,7 @@
 package com.cave;
 
+import com.cave.word.WordConsts;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,8 +80,8 @@ public class Controller {
 
     private void buildRoad() {
         _locationEntityList.add(_locIndex++, makeLocation(Location.road,
-                "you are standing...",
-                "you are at end of road again",
+                WordConsts.LONG_ROAD,
+                WordConsts.SHORT_ROAD,
                 0,
                 q));
         makeInstruction(Motion.W, 0, Location.hill);
@@ -107,8 +109,8 @@ public class Controller {
     private void buildHill() {
         _locationEntityList.add(_locIndex++,
                 makeLocation(Location.hill,
-                        "you are walking up hill...",
-                        "you are at hill",
+                        WordConsts.LONG_HILL,
+                        WordConsts.SHORT_HILL,
                         0,
                         q));
 
@@ -125,8 +127,8 @@ public class Controller {
     private void buildHouse() {
         _locationEntityList.add(_locIndex++,
                 makeLocation(Location.house,
-                        "you are inside a building...",
-                        "you are inside",
+                        WordConsts.LONG_HOUSE,
+                        WordConsts.SHORT_HOUSE,
                         0,
                         q));
 
@@ -139,8 +141,8 @@ public class Controller {
     private void buildValley() {
         _locationEntityList.add(_locIndex++,
                 makeLocation(Location.valley,
-                        "you are in a valley in the forest...",
-                        "you're in valley",
+                        WordConsts.LONG_VALLEY,
+                        WordConsts.SHORT_VALLEY,
                         0,
                         q));
         makeInstruction(Motion.UPSTREAM, 0, Location.road);
@@ -155,8 +157,8 @@ public class Controller {
     private void buildForestAndWoods() {
         _locationEntityList.add(_locIndex++,
                 makeLocation(Location.forest,
-                        "you are in open forest beside a stream...",
-                        "you're in forest.",
+                        WordConsts.LONG_FOREST,
+                        WordConsts.SHORT_FOREST,
                         0,
                         q));
         makeInstruction(Motion.S, 0, Location.road); // don knuth's code dont have this??
@@ -169,8 +171,8 @@ public class Controller {
 
         _locationEntityList.add(_locIndex++,
                 makeLocation(Location.woods,
-                        "you are in open woods near both a valley and a road...",
-                        "you're in forest",
+                        WordConsts.LONG_WOODS,
+                        WordConsts.SHORT_FOREST, // woods is part of forest
                         0,
                         q));
         makeInstruction(Motion.ROAD, 0, Location.road);

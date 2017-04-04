@@ -3,6 +3,7 @@ package test.cave;
 import com.cave.Controller;
 import com.cave.Location;
 import com.cave.Motion;
+import com.cave.word.WordConsts;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
@@ -12,7 +13,6 @@ import org.junit.runner.RunWith;
 import test.cave.generic.Scenario;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class ControllerTest {
@@ -24,17 +24,71 @@ public class ControllerTest {
         _controller.build();
     }
 
+
     @Test
-    public void makeRoad() throws Exception {
-        System.out.println(_controller.toString());
+    public void roadLongDescAndShortDesc() throws Exception {
+        //System.out.println(_controller.toString());
         String longDesc = _controller.longDesc(Location.road);
-        assertTrue(longDesc.length() > 0);
+        assertEquals(WordConsts.LONG_ROAD, longDesc);
+
         String shortDesc = _controller.shortDesc(Location.road);
-        assertTrue(shortDesc.length() > 0);
+        assertEquals(WordConsts.SHORT_ROAD, shortDesc);
     }
 
     @Test
-    @Parameters(method = "getScenario")
+    public void hillLongDescAndShortDesc() throws Exception {
+        //System.out.println(_controller.toString());
+        String longDesc = _controller.longDesc(Location.hill);
+        assertEquals(WordConsts.LONG_HILL, longDesc);
+
+        String shortDesc = _controller.shortDesc(Location.hill);
+        assertEquals(WordConsts.SHORT_HILL, shortDesc);
+    }
+
+
+    @Test
+    @Parameters(method = "getDescScenario")
+    @TestCaseName("{params}")
+    public void desc(Scenario scenario) {
+        Location location = scenario.givenLocation();
+        String expectedLongDesc = scenario.longDescription();
+        String expectedShortDesc = scenario.shortDescription();
+        assertEquals(expectedLongDesc, _controller.longDesc(location));
+        assertEquals(expectedShortDesc, _controller.shortDesc(location));
+    }
+
+    private Scenario[] getDescScenario() {
+        Scenario[] scenarios = new Scenario[]{
+                new Scenario.Builder("road")
+                        .withLocation(Location.road)
+                        .expectDescription(WordConsts.LONG_ROAD, WordConsts.SHORT_ROAD)
+                        .build(),
+                new Scenario.Builder("hill")
+                        .withLocation(Location.hill)
+                        .expectDescription(WordConsts.LONG_HILL, WordConsts.SHORT_HILL)
+                        .build(),
+                new Scenario.Builder("house")
+                        .withLocation(Location.house)
+                        .expectDescription(WordConsts.LONG_HOUSE, WordConsts.SHORT_HOUSE)
+                        .build(),
+                new Scenario.Builder("valley")
+                        .withLocation(Location.valley)
+                        .expectDescription(WordConsts.LONG_VALLEY, WordConsts.SHORT_VALLEY)
+                        .build(),
+                new Scenario.Builder("forest")
+                        .withLocation(Location.forest)
+                        .expectDescription(WordConsts.LONG_FOREST, WordConsts.SHORT_FOREST)
+                        .build(),
+                new Scenario.Builder("woods")
+                        .withLocation(Location.woods)
+                        .expectDescription(WordConsts.LONG_WOODS, WordConsts.SHORT_FOREST)
+                        .build(),
+           };
+        return scenarios;
+    }
+
+    @Test
+    @Parameters(method = "getMoveScenario")
     @TestCaseName("{params}")
     public void move(Scenario scenario) {
         System.out.println(scenario.description());
@@ -45,7 +99,7 @@ public class ControllerTest {
     }
 
 
-    private Scenario[] getScenario() {
+    private Scenario[] getMoveScenario() {
         Scenario[] scenarios = new Scenario[]{
                 new Scenario.Builder("move from road to north, get to forest")
                         .withMotion(Motion.N)
@@ -91,7 +145,6 @@ public class ControllerTest {
         };
         return scenarios;
     }
-
 
 
 }

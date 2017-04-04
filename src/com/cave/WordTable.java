@@ -2,6 +2,7 @@ package com.cave;
 
 
 import com.cave.hash.HashMap;
+import com.cave.word.WordConsts;
 import com.cave.word.WordType;
 
 import static com.cave.Motion.*;
@@ -13,8 +14,8 @@ public class WordTable {
     public WordTable() {
         _hashMap = new HashMap();
         _messages = new String[]{
-                "this is help", //0
-                "this is info", //1
+                WordConsts.HELP, //0
+                WordConsts.INFO, //1
                 "",
                 "",
                 "",
@@ -22,7 +23,7 @@ public class WordTable {
                 "",
                 "",
                 "",
-                "I don't know how.",   //9
+                WordConsts.SWIM,
         };
 
         build();

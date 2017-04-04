@@ -8,6 +8,8 @@ public class Scenario {
     private Motion _givenMotion;
     private Location _givenLocation;
     private Location _expectedLocation;
+    private String _shortDescription;
+    private String _longDescription;
 
     public String description() {
         return _description;
@@ -25,6 +27,13 @@ public class Scenario {
         return _expectedLocation;
     }
 
+    public String longDescription() {
+        return _longDescription;
+    }
+    public String shortDescription() {
+        return _shortDescription;
+    }
+
     @Override
     public String toString() {
         return _description;
@@ -35,6 +44,9 @@ public class Scenario {
         private Motion _givenMotion;
         private Location _givenLocation;
         private Location _expectedLocation;
+
+        private String _shortDescription;
+        private String _longDescription;
 
         public Builder(String desc) {
             _description = desc;
@@ -50,6 +62,13 @@ public class Scenario {
             return this;
         }
 
+        public Builder expectDescription(String longDesc, String shortDesc) {
+            _longDescription = longDesc;
+            _shortDescription = shortDesc;
+            return this;
+        }
+
+
         public Builder expectLocation(Location location) {
             _expectedLocation = location;
             return this;
@@ -62,8 +81,11 @@ public class Scenario {
 
     private Scenario(Builder builder) {
         _description = builder._description;
+
         _givenMotion = builder._givenMotion;
         _givenLocation = builder._givenLocation;
         _expectedLocation = builder._expectedLocation;
+        _longDescription = builder._longDescription;
+        _shortDescription = builder._shortDescription;
     }
 }

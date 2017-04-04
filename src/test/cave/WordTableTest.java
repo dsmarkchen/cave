@@ -4,6 +4,7 @@ import com.cave.Action;
 import com.cave.Motion;
 import com.cave.Object;
 import com.cave.WordTable;
+import com.cave.word.WordConsts;
 import com.cave.word.WordType;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -95,16 +96,14 @@ public class WordTableTest {
     }
 
     private Scenario[] getMessageScenarios() {
-        String help = "this is help";
-        String info = "this is info";
         Scenario[] scenarios = new Scenario[]{
                 (new Builder("help"))
                         .withGivenWord("help")
-                        .thenExpectedMessage(help)
+                        .thenExpectedMessage(WordConsts.HELP)
                         .build(),
                 (new Builder("info"))
                         .withGivenWord("info")
-                        .thenExpectedMessage(info)
+                        .thenExpectedMessage(WordConsts.INFO)
                         .build(),
                 (new Builder("swim"))
                         .withGivenWord("swim")
