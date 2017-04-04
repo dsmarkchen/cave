@@ -26,10 +26,26 @@ public class Main {
 
             WordType type = wordTable.wordType(h);
             int meaning = wordTable.meaning(h);
-            Motion motion = Motion.values()[meaning - 1];
-            loc = controller.move(motion, loc);
-            System.out.println(loc.toString());
-            System.out.println(controller.longDesc(loc));
+            if(type == WordType.motion_type) {
+                Motion motion = Motion.values()[meaning - 1];
+                loc = controller.move(motion, loc);
+                System.out.println(loc.toString());
+                System.out.println(controller.longDesc(loc));
+            }
+            else if(type == WordType.message_type) {
+                String s = wordTable.message(meaning);
+                System.out.println(s);
+
+            } else if (type == WordType.action_type) {
+                Action action = Action.values()[meaning];
+                System.out.println(action.toString());
+                if(action == Action.QUIT) {
+                    break;
+                }
+                else if  (action == Action.GO) {
+                    System.out.println("where?");
+                }
+            }
         }
 
     }
