@@ -97,15 +97,19 @@ public class WordTableTest {
 
     private Scenario[] getMessageScenarios() {
         Scenario[] scenarios = new Scenario[]{
-                (new Builder("help"))
+                new Builder("help")
                         .withGivenWord("help")
                         .thenExpectedMessage(WordConsts.HELP)
                         .build(),
-                (new Builder("info"))
+                new Builder("info")
                         .withGivenWord("info")
                         .thenExpectedMessage(WordConsts.INFO)
                         .build(),
-                (new Builder("swim"))
+                new Builder("trees")
+                        .withGivenWord("trees")
+                        .thenExpectedMessage(WordConsts.TREES)
+                        .build(),
+                new Builder("swim")
                         .withGivenWord("swim")
                         .thenExpectedMessage("I don't know how.")
                         .build(),
@@ -178,7 +182,7 @@ public class WordTableTest {
     }
 
     private Scenario[] getObjectScenarios() {
-        Scenario[] scenarios = new Scenario[]{
+        return new Scenario[]{
                 (new Builder("key"))
                         .withGivenWord("key")
                         .thenExpectedObject(Object.KEYS)
@@ -207,8 +211,75 @@ public class WordTableTest {
                         .withGivenWord("bird")
                         .thenExpectedObject(Object.BIRD)
                         .build(),
+
+                (new Builder("door"))
+                        .withGivenWord("door")
+                        .thenExpectedObject(Object.DOOR)
+                        .build(),
+                (new Builder("pillow"))
+                        .withGivenWord("pillo")
+                        .thenExpectedObject(Object.PILLOW)
+                        .build(),
+                (new Builder("snake"))
+                        .withGivenWord("snake")
+                        .thenExpectedObject(Object.SNAKE)
+                        .build(),
+                (new Builder("crystal"))
+                        .withGivenWord("fissu")
+                        .thenExpectedObject(Object.CRYSTAL)
+                        .build(),
+                (new Builder("table"))
+                        .withGivenWord("table")
+                        .thenExpectedObject(Object.TABLET)
+                        .build(),
+                (new Builder("clam"))
+                        .withGivenWord("clam")
+                        .thenExpectedObject(Object.CLAM)
+                        .build(),
+                (new Builder("oyster"))
+                        .withGivenWord("oyste")
+                        .thenExpectedObject(Object.OYSTER)
+                        .build(),
+
+                (new Builder("mag"))
+                        .withGivenWord("magaz")
+                        .thenExpectedObject(Object.MAG)
+                        .build(),
+                (new Builder("dwarf"))
+                        .withGivenWord("dwarf")
+                        .thenExpectedObject(Object.DWARF)
+                        .build(),
+                (new Builder("knife"))
+                        .withGivenWord("knife")
+                        .thenExpectedObject(Object.KNIFE)
+                        .build(),
+
+                (new Builder("food"))
+                        .withGivenWord("food")
+                        .thenExpectedObject(Object.FOOD)
+                        .build(),
+                (new Builder("bottle"))
+                        .withGivenWord("bottl")
+                        .thenExpectedObject(Object.BOTTLE)
+                        .build(),
+                (new Builder("water"))
+                        .withGivenWord("water")
+                        .thenExpectedObject(Object.WATER)
+                        .build(),
+
+                (new Builder("oil"))
+                        .withGivenWord("oil")
+                        .thenExpectedObject(Object.OIL)
+                        .build(),
+                (new Builder("mirror"))
+                        .withGivenWord("mirro")
+                        .thenExpectedObject(Object.MIRROR)
+                        .build(),
+                (new Builder("plant"))
+                        .withGivenWord("plant")
+                        .thenExpectedObject(Object.PLANT)
+                        .build(),
         };
-        return scenarios;
     }
 
     private Scenario[] getMotionScenarios() {
@@ -279,6 +350,14 @@ public class WordTableTest {
                         .thenExpectedFound(Motion.HOUSE)
                         .build(),
 
+
+                (new Builder("cobbles"))
+                        .withGivenWord("cobbl")
+                        .thenExpectedFound(Motion.COBBLES)
+                        .build(),
+
+
+
                 (new Builder("cave"))
                         .withGivenWord("cave")
                         .thenExpectedFound(Motion.CAVE)
@@ -315,7 +394,7 @@ public class WordTableTest {
                         .withGivenWord("nowhe")
                         .thenExpectedFound(Motion.NOWHERE)
                         .build(),
-         };
+        };
         return scenarios;
     }
 

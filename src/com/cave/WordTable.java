@@ -6,6 +6,8 @@ import com.cave.word.WordConsts;
 import com.cave.word.WordType;
 
 import static com.cave.Motion.*;
+import static com.cave.word.WordConsts.HELP_INDEX;
+import static com.cave.word.WordConsts.INFO_INDEX;
 
 public class WordTable {
     private HashMap _hashMap;
@@ -16,7 +18,7 @@ public class WordTable {
         _messages = new String[]{
                 WordConsts.HELP, //0
                 WordConsts.INFO, //1
-                "",
+                WordConsts.TREES, //2
                 "",
                 "",
                 "",
@@ -110,6 +112,8 @@ public class WordTable {
         _hashMap.put("wall", wordType, Motion.WALL.getIndex());
         _hashMap.put("hall", wordType, Motion.HALL.getIndex());
 
+        _hashMap.put("cobbl", wordType, Motion.COBBLES.getIndex());
+
         _hashMap.put("y2", wordType, Motion.Y2.getIndex());
         _hashMap.put("xyzzy", wordType, Motion.XYZZY.getIndex());
         _hashMap.put("plugh", wordType, Motion.PLUGH.getIndex());
@@ -132,6 +136,27 @@ public class WordTable {
         _hashMap.put("rod", wordType, Object.ROD.getIndex());
         _hashMap.put("bird", wordType, Object.BIRD.getIndex());
 
+        _hashMap.put("door", wordType, Object.DOOR.getIndex());
+        _hashMap.put("pillo", wordType, Object.PILLOW.getIndex());
+        _hashMap.put("snake", wordType, Object.SNAKE.getIndex());
+        _hashMap.put("fissu", wordType, Object.CRYSTAL.getIndex());
+
+        _hashMap.put("table", wordType, Object.TABLET.getIndex());
+        _hashMap.put("clam", wordType, Object.CLAM.getIndex());
+        _hashMap.put("oyste", wordType, Object.OYSTER.getIndex());
+
+        _hashMap.put("magaz", wordType, Object.MAG.getIndex());
+        _hashMap.put("dwarf", wordType, Object.DWARF.getIndex());
+        _hashMap.put("knife", wordType, Object.KNIFE.getIndex());
+
+        _hashMap.put("food", wordType, Object.FOOD.getIndex());
+        _hashMap.put("bottl", wordType, Object.BOTTLE.getIndex());
+        _hashMap.put("water", wordType, Object.WATER.getIndex());
+
+
+        _hashMap.put("oil", wordType, Object.OIL.getIndex());
+        _hashMap.put("mirro", wordType, Object.MIRROR.getIndex());
+        _hashMap.put("plant", wordType, Object.PLANT.getIndex());
     }
 
     private void buildActions() {
@@ -158,9 +183,11 @@ public class WordTable {
 
     private void buildMessages() {
         WordType wordType = WordType.message_type;
-        _hashMap.put("help", wordType, 0);
-        _hashMap.put("info", wordType, 1);
-        _hashMap.put("swim", wordType, 9);
+        _hashMap.put("help", wordType, HELP_INDEX);
+        _hashMap.put("info", wordType, INFO_INDEX);
+        _hashMap.put("tree", wordType, WordConsts.TREE_INDEX);
+        _hashMap.put("trees", wordType, WordConsts.TREE_INDEX);
+        _hashMap.put("swim", wordType, WordConsts.SWIM_INDEX);
     }
 
     public int lookup(String s) {

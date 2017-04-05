@@ -47,7 +47,7 @@ public class ControllerTest {
 
 
     @Test
-    @Parameters(method = "getDescScenario")
+    @Parameters(method = "getLocationDescScenario")
     @TestCaseName("{params}")
     public void desc(Scenario scenario) {
         Location location = scenario.givenLocation();
@@ -57,7 +57,7 @@ public class ControllerTest {
         assertEquals(expectedShortDesc, _controller.shortDesc(location));
     }
 
-    private Scenario[] getDescScenario() {
+    private Scenario[] getLocationDescScenario() {
         Scenario[] scenarios = new Scenario[]{
                 new Scenario.Builder("road")
                         .withLocation(Location.road)
@@ -84,12 +84,49 @@ public class ControllerTest {
                         .expectDescription(WordConsts.LONG_WOODS, WordConsts.SHORT_FOREST)
                         .build(),
 
+                new Scenario.Builder("slit")
+                        .withLocation(Location.slit)
+                        .expectDescription(WordConsts.LONG_SLIT, WordConsts.SHORT_SLIT)
+                        .build(),
+
+                new Scenario.Builder("outside")
+                        .withLocation(Location.outside)
+                        .expectDescription(WordConsts.LONG_OUTSIDE, WordConsts.SHORT_OUTSIDE)
+                        .build(),
+
+                new Scenario.Builder("inside")
+                        .withLocation(Location.inside)
+                        .expectDescription(WordConsts.LONG_INSIDE, WordConsts.SHORT_INSIDE)
+                        .build(),
+
+
+                new Scenario.Builder("cobbles")
+                        .withLocation(Location.cobbles)
+                        .expectDescription(WordConsts.LONG_COBBLES, WordConsts.SHORT_COBBLES)
+                        .build(),
+
+                new Scenario.Builder("debris")
+                        .withLocation(Location.debris)
+                        .expectDescription(WordConsts.LONG_DEBRIS, WordConsts.SHORT_DEBRIS)
+                        .build(),
+
+
+                new Scenario.Builder("awk")
+                        .withLocation(Location.awk)
+                        .expectDescription(WordConsts.LONG_AWKWARD, "")
+                        .build(),
+
+                new Scenario.Builder("bird chamber")
+                        .withLocation(Location.bird)
+                        .expectDescription(WordConsts.LONG_BIRD, WordConsts.SHORT_BIRD)
+                        .build(),
+
 
                 new Scenario.Builder("sewer")
                         .withLocation(Location.sewer)
                         .expectDescription(WordConsts.LONG_SEWER, "")
                         .build(),
-         };
+        };
         return scenarios;
     }
 
@@ -149,6 +186,29 @@ public class ControllerTest {
                         .expectLocation(Location.road)
                         .build(),
 
+                new Scenario.Builder("move from valley to south, get to slit")
+                        .withMotion(Motion.S)
+                        .withLocation(Location.valley)
+                        .expectLocation(Location.slit)
+                        .build(),
+
+                new Scenario.Builder("move from slit to north, get to valley")
+                        .withMotion(Motion.N)
+                        .withLocation(Location.slit)
+                        .expectLocation(Location.valley)
+                        .build(),
+                new Scenario.Builder("move from slit to house, get to road")
+                        .withMotion(Motion.HOUSE)
+                        .withLocation(Location.slit)
+                        .expectLocation(Location.road)
+                        .build(),
+                new Scenario.Builder("move from slit to WOODS(E, W), get to forest")
+                        .withMotion(Motion.WOODS)
+                        .withLocation(Location.slit)
+                        .expectLocation(Location.forest)
+                        .build(),
+
+
                 new Scenario.Builder("move from house to downstream, get to sewer")
                         .withMotion(Motion.DOWNSTREAM)
                         .withLocation(Location.house)
@@ -159,5 +219,40 @@ public class ControllerTest {
         return scenarios;
     }
 
+    @Test
+    @Parameters(method = "getInsideScenario")
+    @TestCaseName("{params}")
+    public void inside(Scenario scenario) {
+        System.out.println(scenario.description());
+        Motion motion = scenario.givenMotion();
+        Location location = scenario.givenLocation();
+        Location expected = scenario.expectedLocation();
+        assertEquals(expected, _controller.move(motion, location));
+    }
+
+    private Scenario[] getInsideScenario() {
+        return new Scenario[]{
+                new Scenario.Builder("crawl from inside to west (cobbles), get to cobbles")
+                        .withMotion(Motion.W)
+                        .withLocation(Location.inside)
+                        .expectLocation(Location.cobbles)
+                        .build(),
+                new Scenario.Builder("crawl from inside to cobbles, get to cobbles")
+                        .withMotion(Motion.CRAWL)
+                        .withLocation(Location.inside)
+                        .expectLocation(Location.cobbles)
+                        .build(),
+                new Scenario.Builder("cobbles from inside, get to cobbles")
+                        .withMotion(Motion.COBBLES)
+                        .withLocation(Location.inside)
+                        .expectLocation(Location.cobbles)
+                        .build(),
+                new Scenario.Builder("move in from inside, get to cobbles")
+                        .withMotion(Motion.IN)
+                        .withLocation(Location.inside)
+                        .expectLocation(Location.cobbles)
+                        .build(),
+        };
+    }
 
 }

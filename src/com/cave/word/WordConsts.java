@@ -1,6 +1,13 @@
 package com.cave.word;
 
 public class WordConsts {
+
+    public static int HELP_INDEX = 0;
+    public static int INFO_INDEX = 1;
+    public static int TREE_INDEX = 2;
+    public static int SWIM_INDEX = 9;
+
+
     public static String HELP = "I know of places, actions, and things.  Most of my vocabulary\n" +
             "describes places and is used to move you there.  To move, try words\n" +
             "like forest, building, downstream, enter, east, west, north, south,\n" +
@@ -41,6 +48,13 @@ public class WordConsts {
             "which tells me never to repeat the full description of a place\n" +
             "unless you explicitly ask me to.";
 
+    public static String TREES = "The trees of the forest are large hardwood oak and maple, with an\n" +
+            "occasional grove of pine or spruce.  There is quite a bit of under-\n" +
+            "growth, largely birch and ash saplings plus nondescript bushes of\n" +
+            "various sorts.  This time of year visibility is quite restricted by\n" +
+            "all the leaves, but travel is quite easy if you detour around the\n" +
+            "spruce and berry bushes.";
+
     public static String SWIM = "I don't know how.";
 
 
@@ -64,8 +78,38 @@ public class WordConsts {
     public static String LONG_WOODS = "You are in open forest near both a valley and a road.";
     public static String SHORT_FOREST = "You're in forest.";
 
+    public static String LONG_SLIT = "At your feet all the water of the stream splashes into a 2-inch slit\n"
+            + "in the rock.  Downstream the streambed is bare rock.";
+    public static String SHORT_SLIT = "You're at slit in streambed.";
+
+    public static String LONG_OUTSIDE = "You are in a 20-foot depression floored with bare dirt.  Set into the\n"
+            + "dirt is a strong steel grate mounted in concrete.  A dry streambed\n"
+            + "leads into the depression.";
+    public static String SHORT_OUTSIDE = "You're outside grate.";
+
+    public static String LONG_INSIDE = "You are in a small chamber beneath a 3x3 steel grate to the surface."
+            + "A low crawl over cobbles leads inwards to the west.";
+    public static String SHORT_INSIDE = "You're below the grate.";
+
+    public static String LONG_COBBLES = "You are crawling over cobbles in a low passage.  There is a dim light\n"
+            + "at the east end of the passage.";
+    public static String SHORT_COBBLES = "You're in cobble crawl.";
+
+    public static String LONG_DEBRIS = "You are in a debris room filled with stuff washed in from the surface.\n"
+            + "A low wide passage with cobbles becomes plugged with mud and debris\n"
+            + "here, but an awkward canyon leads upward and west.  A note on the wall\n"
+            + "says \"MAGIC WORD XYZZY\".";
+    public static String SHORT_DEBRIS = "You're in debris room.";
 
 
-    public static String LONG_SEWER =  "The stream flows out through a pair of 1-foot-diameter sewer pipes.\n" +
+    public static String LONG_AWKWARD = "You are in an awkward sloping east/west canyon.";
+
+    public static String LONG_BIRD = "You are in a splendid chamber thirty feet high.  The walls are frozen\n"
+            + "rivers of orange stone.  An awkward canyon and a good passage exit\n"
+            + "from east and west sides of the chamber.";
+    public static String SHORT_BIRD = "You're in bird chamber.";
+
+
+    public static String LONG_SEWER = "The stream flows out through a pair of 1-foot-diameter sewer pipes.\n" +
             "It would be advisable to use the exit.";
 }

@@ -76,6 +76,75 @@ public class Controller {
         buildHouse();
         buildValley();
         buildForestAndWoods();
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.slit,
+                WordConsts.LONG_SLIT,
+                WordConsts.SHORT_SLIT,
+                0,
+                q));
+        makeInstruction(Motion.HOUSE, 0, Location.road);
+        makeInstruction(Motion.UPSTREAM, 0, Location.valley);
+        ditto(Motion.N);
+        makeInstruction(Motion.WOODS, 0, Location.forest);
+        ditto(Motion.E);
+        ditto(Motion.W);
+        makeInstruction(Motion.DOWNSTREAM, 0, Location.outside);
+        ditto(Motion.ROCK);
+        ditto(Motion.BED);
+        ditto(Motion.S);
+        makeInstruction(Motion.ENTER, 0, Location.inside); // there's some condition needed?
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.outside,
+                WordConsts.LONG_OUTSIDE,
+                WordConsts.SHORT_OUTSIDE,
+                0,
+                q));
+        makeInstruction(Motion.WOODS, 0, Location.forest);
+        ditto(Motion.E);
+        ditto(Motion.W);
+        makeInstruction(Motion.UPSTREAM, 0, Location.slit);
+        ditto(Motion.N);
+        makeInstruction(Motion.HOUSE, 0, Location.road);
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.inside,
+                WordConsts.LONG_INSIDE,
+                WordConsts.SHORT_INSIDE,
+                0,
+                q));
+        makeInstruction(Motion.OUT, 0, Location.outside);
+        makeInstruction(Motion.U, 0, Location.outside);
+        makeInstruction(Motion.CRAWL, 0, Location.cobbles);
+        ditto(Motion.COBBLES);
+        ditto(Motion.IN);
+        ditto(Motion.W);
+        makeInstruction(Motion.PIT, 0, Location.spit);
+        makeInstruction(Motion.DEBRIS, 0, Location.debris);
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.cobbles,
+                WordConsts.LONG_COBBLES,
+                WordConsts.SHORT_COBBLES,
+                0,
+                q));
+
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.debris,
+                WordConsts.LONG_DEBRIS,
+                WordConsts.SHORT_DEBRIS,
+                0,
+                q));
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.awk,
+                WordConsts.LONG_AWKWARD,
+                "",
+                0,
+                q));
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.bird,
+                WordConsts.LONG_BIRD,
+                WordConsts.SHORT_BIRD,
+                0,
+                q));
+
         buildRestLocations();
     }
 
@@ -154,6 +223,10 @@ public class Controller {
         ditto(Motion.E);
         ditto(Motion.W);
         ditto(Motion.U);
+        makeInstruction(Motion.DOWNSTREAM, 0, Location.slit);
+        ditto(Motion.S);
+        ditto(Motion.D);
+        makeInstruction(Motion.DEPRESSION, 0, Location.outside);
     }
 
     private void buildForestAndWoods() {
@@ -186,6 +259,7 @@ public class Controller {
         makeInstruction(Motion.WOODS, 0, Location.forest);
         ditto(Motion.S);
     }
+
     private void buildRestLocations() {
         _locationEntityList.add(_locIndex++,
                 makeLocation(Location.sewer,
@@ -227,7 +301,7 @@ public class Controller {
             }
             if (locationEntity.location() == loc) {
 
-                if(motion == Motion.LOOK) {
+                if (motion == Motion.LOOK) {
                     System.out.println(longDesc(loc));
                     return loc;
                 }
@@ -237,7 +311,7 @@ public class Controller {
             }
         }
 
-       for (int i = start; i < end; i++) {
+        for (int i = start; i < end; i++) {
             if (_travales[i].motion() == motion) {
                 System.out.println(longDesc(_travales[i].dest()));
                 return _travales[i].dest();

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class ObjectTest {
     @Test
     public void testObject() {
-        assertEquals(17, Object.values().length);
+        assertEquals(31, Object.values().length);
     }
 
 }
