@@ -9,6 +9,6 @@ public class MotionTest {
 
     @Test
     public void motion_checkNumberOfElements() {
-        assertEquals(75, Motion.values().length);
+        assertEquals(76, Motion.values().length);
     }
 }

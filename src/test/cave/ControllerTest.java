@@ -83,7 +83,13 @@ public class ControllerTest {
                         .withLocation(Location.woods)
                         .expectDescription(WordConsts.LONG_WOODS, WordConsts.SHORT_FOREST)
                         .build(),
-           };
+
+
+                new Scenario.Builder("sewer")
+                        .withLocation(Location.sewer)
+                        .expectDescription(WordConsts.LONG_SEWER, "")
+                        .build(),
+         };
         return scenarios;
     }
 
@@ -141,7 +147,14 @@ public class ControllerTest {
                         .withMotion(Motion.S)
                         .withLocation(Location.forest)
                         .expectLocation(Location.road)
-                        .build()
+                        .build(),
+
+                new Scenario.Builder("move from house to downstream, get to sewer")
+                        .withMotion(Motion.DOWNSTREAM)
+                        .withLocation(Location.house)
+                        .expectLocation(Location.sewer)
+                        .build(),
+
         };
         return scenarios;
     }

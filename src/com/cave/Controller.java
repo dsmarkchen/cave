@@ -76,6 +76,7 @@ public class Controller {
         buildHouse();
         buildValley();
         buildForestAndWoods();
+        buildRestLocations();
     }
 
     private void buildRoad() {
@@ -136,6 +137,7 @@ public class Controller {
         ditto(Motion.OUT);
         ditto(Motion.OUTDOORS);
         ditto(Motion.W);
+        makeInstruction(Motion.DOWNSTREAM, 0, Location.sewer);
     }
 
     private void buildValley() {
@@ -184,6 +186,16 @@ public class Controller {
         makeInstruction(Motion.WOODS, 0, Location.forest);
         ditto(Motion.S);
     }
+    private void buildRestLocations() {
+        _locationEntityList.add(_locIndex++,
+                makeLocation(Location.sewer,
+                        WordConsts.LONG_SEWER,
+                        "",
+                        0,
+                        q));
+        makeInstruction(Motion.FORCE, 0, Location.house);
+
+    }
 
     public String longDesc(Location loc) {
         for (LocationEntity entity : _locationEntityList) {
@@ -208,17 +220,26 @@ public class Controller {
         int end = -1;
         boolean stopit = false;
 
+
         for (LocationEntity locationEntity : _locationEntityList) {
             if (stopit == true) {
                 end = locationEntity.start();
             }
             if (locationEntity.location() == loc) {
+
+                if(motion == Motion.LOOK) {
+                    System.out.println(longDesc(loc));
+                    return loc;
+                }
+
                 start = locationEntity.start();
                 stopit = true;
             }
         }
-        for (int i = start; i < end; i++) {
+
+       for (int i = start; i < end; i++) {
             if (_travales[i].motion() == motion) {
+                System.out.println(longDesc(_travales[i].dest()));
                 return _travales[i].dest();
             }
         }

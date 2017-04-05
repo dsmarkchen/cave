@@ -63,4 +63,9 @@ public class WordConsts {
     public static String LONG_FOREST = "You are in open forest, with a deep valley to one side.";
     public static String LONG_WOODS = "You are in open forest near both a valley and a road.";
     public static String SHORT_FOREST = "You're in forest.";
+
+
+
+    public static String LONG_SEWER =  "The stream flows out through a pair of 1-foot-diameter sewer pipes.\n" +
+            "It would be advisable to use the exit.";
 }

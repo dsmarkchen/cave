@@ -34,7 +34,7 @@ public class WordTableTest {
         // convert word index to actual meaning
         WordType type = wordTable.wordType(res);
         int meaning = wordTable.meaning(res);
-        Motion motion = Motion.values()[meaning - 1];
+        Motion motion = Motion.values()[meaning];
 
         int expected = scenario.found().getIndex();
 
@@ -109,7 +109,7 @@ public class WordTableTest {
                         .withGivenWord("swim")
                         .thenExpectedMessage("I don't know how.")
                         .build(),
-         };
+        };
         return scenarios;
     }
 
@@ -173,7 +173,7 @@ public class WordTableTest {
                         .withGivenWord("quit")
                         .thenExpectedAction(Action.QUIT)
                         .build(),
-         };
+        };
         return scenarios;
     }
 
@@ -278,7 +278,44 @@ public class WordTableTest {
                         .withGivenWord("house")
                         .thenExpectedFound(Motion.HOUSE)
                         .build(),
-        };
+
+                (new Builder("cave"))
+                        .withGivenWord("cave")
+                        .thenExpectedFound(Motion.CAVE)
+                        .build(),
+                (new Builder("slab"))
+                        .withGivenWord("slab")
+                        .thenExpectedFound(Motion.SLAB)
+                        .build(),
+                (new Builder("awkwa"))
+                        .withGivenWord("awkwa")
+                        .thenExpectedFound(Motion.AWKWARD)
+                        .build(),
+                (new Builder("secre"))
+                        .withGivenWord("secre")
+                        .thenExpectedFound(Motion.SECRET)
+                        .build(),
+                (new Builder("xyzzy"))
+                        .withGivenWord("xyzzy")
+                        .thenExpectedFound(Motion.XYZZY)
+                        .build(),
+                (new Builder("plugh"))
+                        .withGivenWord("plugh")
+                        .thenExpectedFound(Motion.PLUGH)
+                        .build(),
+                (new Builder("main"))
+                        .withGivenWord("main")
+                        .thenExpectedFound(Motion.OFFICE)
+                        .build(),
+                (new Builder("null"))
+                        .withGivenWord("nowhe")
+                        .thenExpectedFound(Motion.NOWHERE)
+                        .build(),
+                (new Builder("nowhe"))
+                        .withGivenWord("nowhe")
+                        .thenExpectedFound(Motion.NOWHERE)
+                        .build(),
+         };
         return scenarios;
     }
 

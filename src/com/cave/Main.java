@@ -27,10 +27,8 @@ public class Main {
             WordType type = wordTable.wordType(h);
             int meaning = wordTable.meaning(h);
             if(type == WordType.motion_type) {
-                Motion motion = Motion.values()[meaning - 1];
+                Motion motion = Motion.values()[meaning];
                 loc = controller.move(motion, loc);
-                System.out.println(loc.toString());
-                System.out.println(controller.longDesc(loc));
             }
             else if(type == WordType.message_type) {
                 String s = wordTable.message(meaning);

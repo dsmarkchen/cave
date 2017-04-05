@@ -18,16 +18,28 @@ public enum Location {
     debris(11),
     awk(12),
     bird(13),
-    spit(14);
+    spit(14),
 
-//    emist, nugget, efiss, wfiss, wmist,
-//    like1, like2, like3, like4, like5, like6, like7, like8, like9, like10, like11, like12, like13, like14,
-//    brink, elong, wlong,
-//    diff0, diff1, diff2, diff3, diff4, diff5, diff6, diff7, diff8, diff9, diff10,
-//    pony, cross, hmk, west, south, ns, y2, jumble, windoe,
+    emist(15), nugget(16), efiss(17), wfiss(18), wmist(19),
+    like1(20), like2(21), like3(22), like4(23),
+    like5(24), like6(25), like7(26), like8(27),
+    like9(28), like10(29), like11(30), like12(31), like13(32), like14(33),
 
-//    crack,neck,lose,cant,climb,check,snaked,thru,duck,sewer,upnout,didit,
-//    ppass,pdrop,troll;
+    brink(34), elong(35), wlong(36),
+
+    diff0(37), diff1(38), diff2(39), diff3(40),
+    diff4(41), diff5(42), diff6(43), diff7(44),
+    diff8(45), diff9(46), diff10(47),
+
+    pony(48), cross(49), hmk(50), west(51),
+    south(52), ns(53), y2(54), jumble(55), windoe(56),
+
+    crack(57),neck(58),lose(59),cant(60),climb(61),
+    check(62),snaked(63),thru(64),duck(65),
+    sewer(66),upnout(67),didit(68),
+
+    ppass(69),pdrop(70),troll(71);
+
     private int _index;
     private Location(int index) {
         _index = index;

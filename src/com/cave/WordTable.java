@@ -68,8 +68,55 @@ public class WordTable {
         _hashMap.put("road", wordType, Motion.ROAD.getIndex());
         _hashMap.put("hill", wordType, Motion.ROAD.getIndex());
 
+        _hashMap.put("fores", wordType, Motion.WOODS.getIndex());
+        _hashMap.put("valle", wordType, Motion.VALLEY.getIndex());
+
         _hashMap.put("build", wordType, Motion.HOUSE.getIndex());
         _hashMap.put("house", wordType, Motion.HOUSE.getIndex());
+
+        _hashMap.put("gully", wordType, Motion.GULLY.getIndex());
+        _hashMap.put("strea", wordType, Motion.STREAM.getIndex());
+        _hashMap.put("depre", wordType, Motion.DEPRESSION.getIndex());
+        _hashMap.put("entra", wordType, Motion.ENTRANCE.getIndex());
+        _hashMap.put("cave", wordType, Motion.CAVE.getIndex());
+        _hashMap.put("rock", wordType, Motion.ROCK.getIndex());
+        _hashMap.put("slab", wordType, Motion.SLAB.getIndex());
+        _hashMap.put("bed", wordType, Motion.BED.getIndex());
+        _hashMap.put("passa", wordType, Motion.PASSAGE.getIndex());
+        _hashMap.put("caver", wordType, Motion.CAVERN.getIndex());
+        _hashMap.put("canyo", wordType, Motion.CANYON.getIndex());
+        _hashMap.put("awkwa", wordType, Motion.AWKWARD.getIndex());
+        _hashMap.put("secre", wordType, Motion.SECRET.getIndex());
+
+        _hashMap.put("bedqu", wordType, Motion.BEDQUILT.getIndex());
+        _hashMap.put("reser", wordType, Motion.RESERVOIR.getIndex());
+        _hashMap.put("giant", wordType, Motion.GIANT.getIndex());
+        _hashMap.put("orien", wordType, Motion.ORIENTAL.getIndex());
+        _hashMap.put("shell", wordType, Motion.SHELL.getIndex());
+        _hashMap.put("barre", wordType, Motion.BARREN.getIndex());
+        _hashMap.put("broke", wordType, Motion.BROKEN.getIndex());
+        _hashMap.put("debri", wordType, Motion.DEBRIS.getIndex());
+
+        _hashMap.put("view", wordType, Motion.VIEW.getIndex());
+        _hashMap.put("fork", wordType, Motion.FORK.getIndex());
+        _hashMap.put("pit", wordType, Motion.PIT.getIndex());
+
+
+        _hashMap.put("slit", wordType, Motion.SLIT.getIndex());
+        _hashMap.put("crack", wordType, Motion.CRACK.getIndex());
+        _hashMap.put("dome", wordType, Motion.DOME.getIndex());
+
+        _hashMap.put("hole", wordType, Motion.HOLE.getIndex());
+        _hashMap.put("wall", wordType, Motion.WALL.getIndex());
+        _hashMap.put("hall", wordType, Motion.HALL.getIndex());
+
+        _hashMap.put("y2", wordType, Motion.Y2.getIndex());
+        _hashMap.put("xyzzy", wordType, Motion.XYZZY.getIndex());
+        _hashMap.put("plugh", wordType, Motion.PLUGH.getIndex());
+
+        _hashMap.put("main", wordType, Motion.OFFICE.getIndex());
+        _hashMap.put("nowhe", wordType, Motion.NOWHERE.getIndex());
+
     }
 
     private void buildObjects() {
