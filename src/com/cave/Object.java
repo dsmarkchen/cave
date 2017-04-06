@@ -18,4 +18,16 @@ public enum Object {
         return _index;
     }
 
+    public boolean compare(int i){return _index == i;}
+
+    public static Object getValue(int _id)
+    {
+        Object[] values = Object.values();
+        for(int i = 0; i < values.length; i++)
+        {
+            if(values[i].compare(_id))
+                return values[i];
+        }
+        return Object.NOTHING;
+    }
 };

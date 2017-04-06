@@ -3,6 +3,8 @@ package com.cave;
 import com.cave.word.WordConsts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.cave.Motion.D;
@@ -25,10 +27,88 @@ public class Controller {
 
     List<LocationEntity> _locationEntityList;
 
+    private List<ObjectEntity> _objectEntityList;
+    private List<ObjectsInLocation> _objectsInLocationList;
+
 
     public Controller() {
         _travales = new Instruction[TRAVEL_SIZE];
         _locationEntityList = new ArrayList<>();
+
+        _objectsInLocationList = Arrays.asList(
+                new ObjectsInLocation(Location.house)
+                    .drop(Object.KEYS, 0)
+                    .drop(Object.LAMP, 0)
+                    .drop(Object.FOOD, 0)
+                    .drop(Object.BOTTLE, 0),
+                new ObjectsInLocation(Location.cobbles)
+                    .drop(Object.CAGE, 0),
+                new ObjectsInLocation(Location.debris)
+                    .drop(Object.ROD, 0),
+                new ObjectsInLocation(Location.outside)
+                    .drop(Object.GRATE, 0)
+         );
+
+
+        _objectEntityList = Arrays.asList(
+                new ObjectEntity(Object.GRATE)
+                        .addNote("the grate is locked.")
+                        .addNote("the grate is open."),
+                new ObjectEntity(Object.ROD)
+                        .addNote("A three-foot black rod with a rusty star on an end lies nearby."),
+                new ObjectEntity(Object.CAGE)
+                        .addNote("There is a small wicker cage discarded nearby."),
+                new ObjectEntity(Object.KEYS)
+                        .addNote("There are some keys on the ground here."),
+                new ObjectEntity(Object.LAMP)
+                        .addNote("There is a shiny brass lamp nearby. ")
+                        .addNote("There is lamp shining nearby."),
+                new ObjectEntity(Object.FOOD)
+                        .addNote("There is food here. "),
+                new ObjectEntity(Object.BOTTLE)
+                        .addNote("There is a bottle of water here. ")
+                        .addNote("There is a empty bottle here. ")
+                        .addNote("There is a bottle of oil here. "));
+
+
+    }
+    public ObjectsInLocation getObjectInLocation(Location place) {
+        Iterator<ObjectsInLocation> iter = _objectsInLocationList.iterator();
+        while(iter.hasNext()) {
+           ObjectsInLocation res = iter.next() ;
+           if(res.place() == place) {
+               return  res;
+           }
+        }
+        return null;
+    }
+    public void take(Location place, Object obj) {
+        Iterator<ObjectsInLocation> iter = _objectsInLocationList.iterator();
+        while(iter.hasNext()) {
+           ObjectsInLocation res = iter.next() ;
+           if(res.place() == place) {
+               res.take(obj);
+           }
+        }
+
+    }
+    public String describeLocationObjectNotes(ObjectsInLocation objectsInLocation) {
+        int offset;
+        StringBuilder sb = new StringBuilder();
+        if(objectsInLocation == null) return "";
+        Iterator<ObjectEntity> iter = _objectEntityList.iterator();
+        while (iter.hasNext()) {
+            ObjectEntity entity = iter.next();
+            if (!objectsInLocation.at(entity.object())) {
+                continue;
+            }
+            offset = objectsInLocation.getOffsets(entity.object());
+            if (offset >= 0) {
+                sb.append(entity.getNote(offset));
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
     }
 
     public int q = 0;
