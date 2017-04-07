@@ -7,8 +7,6 @@ import java.util.List;
 public class ObjectsInLocation {
     private List<Object> _objects;
     private List<Integer> _offsets;
-
-
     private final Location _place;
 
     public ObjectsInLocation(Location place) {
@@ -20,6 +18,18 @@ public class ObjectsInLocation {
         return _place;
     }
 
+    @Override
+    public String toString() {
+        return "ObjectsInLocation{" +
+                "_objects=" + _objects +
+                ", _offsets=" + _offsets +
+                ", _place=" + _place +
+                '}';
+    }
+
+    public Object first() {
+        return _objects.get(0);
+    }
 
     public ObjectsInLocation drop(Object obj, int offset) {
         _objects.add(obj);

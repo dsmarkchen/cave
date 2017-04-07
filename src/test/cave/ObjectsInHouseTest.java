@@ -14,7 +14,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
-public class ObjectsInLocationTest {
+public class ObjectsInHouseTest {
     private List<ObjectEntity> _objectEntity;
     private ObjectsInLocation _objectsInLocation = new ObjectsInLocation(Location.house);
 
@@ -42,14 +42,19 @@ public class ObjectsInLocationTest {
         _objectsInLocation.drop(Object.BOTTLE, 0);
         _objectsInLocation.take(Object.BOTTLE);
         assertFalse(_objectsInLocation.at(Object.BOTTLE));
+
         int offset;
         StringBuilder sb = new StringBuilder();
         Iterator<ObjectEntity> iter = _objectEntity.iterator();
         while (iter.hasNext()) {
             ObjectEntity entity = iter.next();
-            if (!_objectsInLocation.at(entity.object())) {
-                continue;
+
+            sb.append(entity.object() + " at location: " + _objectsInLocation.at(entity.object()) + ", ");
+
+            if(_objectsInLocation.at(entity.object()) == false) {
+                entity.setObjectState(ObjectEntity.ObjectState.STATE_TAKEN);
             }
+            sb.append("state:  " + entity.getObjectState().toString() + "\n");
             offset = _objectsInLocation.getOffsets(entity.object());
             if (offset >= 0) {
                 sb.append(entity.getNote(offset));
@@ -57,7 +62,7 @@ public class ObjectsInLocationTest {
             }
         }
         System.out.println(sb.toString());
-        assertFalse(sb.toString().contains("bottle"));
+
 
     }
 
@@ -78,6 +83,8 @@ public class ObjectsInLocationTest {
             if (!_objectsInLocation.at(entity.object())) {
                 continue;
             }
+
+            sb.append("state:  " + entity.getObjectState().toString() + "\n");
             offset = _objectsInLocation.getOffsets(entity.object());
             if (offset >= 0) {
                 sb.append(entity.getNote(offset));

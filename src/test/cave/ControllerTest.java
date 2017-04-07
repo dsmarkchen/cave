@@ -8,6 +8,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import test.cave.generic.Scenario;
@@ -218,6 +219,82 @@ public class ControllerTest {
         };
         return scenarios;
     }
+
+    @Test
+    @Parameters(method = "getOutsideScenario")
+    @TestCaseName("{params}")
+    public void outside(Scenario scenario) {
+        System.out.println(scenario.description());
+        Motion motion = scenario.givenMotion();
+        Location location = scenario.givenLocation();
+        Location expected = scenario.expectedLocation();
+        assertEquals(expected, _controller.move(motion, location));
+    }
+
+    @Test
+    public void outsideEnterWithoutKeys() {
+        Scenario scenario = new Scenario.Builder("move from outside to IN without Keys, stay outside")
+                        .withMotion(Motion.IN)
+                        .withLocation(Location.outside)
+                        .withCondition(false)
+                        .expectLocation(Location.outside)
+                        .build();
+
+        System.out.println(scenario.description());
+        Motion motion = scenario.givenMotion();
+        Location location = scenario.givenLocation();
+        Location expected = scenario.expectedLocation();
+        assertEquals(expected, _controller.move(motion, location));
+    }
+
+    @Test
+    public void outsideEnterWithKeys() {
+        Scenario scenario = new Scenario.Builder("move from outside to IN without Keys, stay outside")
+                        .withMotion(Motion.IN)
+                        .withLocation(Location.outside)
+                        .withCondition(true)
+                        .expectLocation(Location.inside)
+                        .build();
+
+        System.out.println(scenario.description());
+        Motion motion = scenario.givenMotion();
+        Location location = scenario.givenLocation();
+        Location expected = scenario.expectedLocation();
+        assertEquals(expected, _controller.move(motion, location));
+    }
+
+    private Scenario[] getOutsideScenario() {
+        return new Scenario[]{
+                new Scenario.Builder("upstream from outside, get to slit")
+                        .withMotion(Motion.UPSTREAM)
+                        .withLocation(Location.outside)
+                        .expectLocation(Location.slit)
+                        .build(),
+                new Scenario.Builder("move from outside to north, get to slit")
+                        .withMotion(Motion.N)
+                        .withLocation(Location.outside)
+                        .expectLocation(Location.slit)
+                        .build(),
+                new Scenario.Builder("move from outside to south, get to forest")
+                        .withMotion(Motion.S)
+                        .withLocation(Location.outside)
+                        .expectLocation(Location.forest)
+                        .build(),
+                new Scenario.Builder("move from outside to IN with Keys, get to inside")
+                        .withMotion(Motion.IN)
+                        .withLocation(Location.outside)
+                        .withCondition(true)
+                        .expectLocation(Location.inside)
+                        .build(),
+                new Scenario.Builder("move from outside to IN without Keys, stay outside")
+                        .withMotion(Motion.IN)
+                        .withLocation(Location.outside)
+                        .withCondition(false)
+                        .expectLocation(Location.outside)
+                        .build(),
+        };
+    }
+
 
     @Test
     @Parameters(method = "getInsideScenario")

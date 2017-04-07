@@ -35,4 +35,15 @@ public class LocationEntity {
     public int start() {
         return _start;
     }
+
+    @Override
+    public String toString() {
+        return "LocationEntity{" +
+                "_location=" + _location +
+                ", _longDesc='" + _longDesc + '\'' +
+                ", _shortDesc='" + _shortDesc + '\'' +
+                ", _flag=" + _flag +
+                ", _start=" + _start +
+                '}';
+    }
 }

@@ -35,25 +35,33 @@ public class Controller {
         _travales = new Instruction[TRAVEL_SIZE];
         _locationEntityList = new ArrayList<>();
 
-        _objectsInLocationList = Arrays.asList(
+        _objectsInLocationList = getObjectInLocationList();
+        _objectEntityList = getObjectEntityList();
+    }
+
+
+    private List<ObjectsInLocation> getObjectInLocationList() {
+        return Arrays.asList(
                 new ObjectsInLocation(Location.house)
-                    .drop(Object.KEYS, 0)
-                    .drop(Object.LAMP, 0)
-                    .drop(Object.FOOD, 0)
-                    .drop(Object.BOTTLE, 0),
+                        .drop(Object.KEYS, 0)
+                        .drop(Object.LAMP, 0)
+                        .drop(Object.FOOD, 0)
+                        .drop(Object.BOTTLE, 0),
                 new ObjectsInLocation(Location.cobbles)
-                    .drop(Object.CAGE, 0),
+                        .drop(Object.CAGE, 0),
                 new ObjectsInLocation(Location.debris)
-                    .drop(Object.ROD, 0),
+                        .drop(Object.ROD, 0),
                 new ObjectsInLocation(Location.outside)
-                    .drop(Object.GRATE, 0)
-         );
+                        .drop(Object.GRATE, 0)
+        );
+    }
 
-
-        _objectEntityList = Arrays.asList(
+    private List<ObjectEntity> getObjectEntityList() {
+        return Arrays.asList(
                 new ObjectEntity(Object.GRATE)
                         .addNote("the grate is locked.")
-                        .addNote("the grate is open."),
+                        .addNote("the grate is open.")
+                        .setObjectState(ObjectEntity.ObjectState.STATE_CLOSE),
                 new ObjectEntity(Object.ROD)
                         .addNote("A three-foot black rod with a rusty star on an end lies nearby."),
                 new ObjectEntity(Object.CAGE)
@@ -70,32 +78,72 @@ public class Controller {
                         .addNote("There is a empty bottle here. ")
                         .addNote("There is a bottle of oil here. "));
 
-
     }
+
     public ObjectsInLocation getObjectInLocation(Location place) {
         Iterator<ObjectsInLocation> iter = _objectsInLocationList.iterator();
-        while(iter.hasNext()) {
-           ObjectsInLocation res = iter.next() ;
-           if(res.place() == place) {
-               return  res;
-           }
+        while (iter.hasNext()) {
+            ObjectsInLocation res = iter.next();
+            if (res.place() == place) {
+                return res;
+            }
         }
         return null;
     }
+
+    public void open(Location place) {
+        Object target = Object.NOTHING;
+        Iterator<ObjectsInLocation> iter = _objectsInLocationList.iterator();
+        while (iter.hasNext()) {
+            ObjectsInLocation res = iter.next();
+            if (res.place() == place) {
+                target = res.first();
+                break;
+            }
+        }
+        if(target != Object.NOTHING)
+            setObjectOpen(target);
+    }
+    private void setObjectOpen(Object object) {
+        Iterator<ObjectEntity> iter = _objectEntityList.iterator();
+        while (iter.hasNext()) {
+            ObjectEntity item = iter.next();
+            if (item.object() == object) {
+                item.setObjectState(ObjectEntity.ObjectState.STATE_OPEN);
+            }
+        }
+    }
+
+
+
+
     public void take(Location place, Object obj) {
         Iterator<ObjectsInLocation> iter = _objectsInLocationList.iterator();
-        while(iter.hasNext()) {
-           ObjectsInLocation res = iter.next() ;
-           if(res.place() == place) {
-               res.take(obj);
-           }
+        while (iter.hasNext()) {
+            ObjectsInLocation res = iter.next();
+            if (res.place() == place) {
+                res.take(obj);
+                updateTakenState(obj);
+            }
+        }
+    }
+
+    private void updateTakenState(Object object) {
+        Iterator<ObjectEntity> iter = _objectEntityList.iterator();
+        while (iter.hasNext()) {
+            ObjectEntity item = iter.next();
+            if (item.object() == object) {
+                item.setObjectState(ObjectEntity.ObjectState.STATE_TAKEN);
+                break;
+            }
         }
 
     }
+
     public String describeLocationObjectNotes(ObjectsInLocation objectsInLocation) {
         int offset;
         StringBuilder sb = new StringBuilder();
-        if(objectsInLocation == null) return "";
+        if (objectsInLocation == null) return "";
         Iterator<ObjectEntity> iter = _objectEntityList.iterator();
         while (iter.hasNext()) {
             ObjectEntity entity = iter.next();
@@ -129,22 +177,33 @@ public class Controller {
         q++;
     }
 
+    final boolean debugInstruction = false;
+    final boolean debugLocationEntityList = false;
+
     @Override
     public String toString() {
         List<Integer> listPostions = new ArrayList<>();
 
         StringBuilder sb = new StringBuilder();
-        for (LocationEntity loc : _locationEntityList) {
-            sb.append(String.format("%s: %03d\n", loc.location().toString(), loc.start()));
-            listPostions.add(loc.start());
+
+        if(debugLocationEntityList) {
+            for (LocationEntity loc : _locationEntityList) {
+                sb.append(loc.toString() + "\n");
+                listPostions.add(loc.start());
+            }
         }
 
-        int i = 0;
-        for (Instruction ins : _travales) {
-            if (ins != null) {
-                String flag = " ";
-                if (listPostions.contains(i)) flag = "*";
-                sb.append(String.format("%s%03d %s %s\n", flag, i++, ins.motion(), ins.dest().toString()));
+        for (ObjectEntity objectEntity : _objectEntityList) {
+            sb.append(objectEntity.toString() + "\n");
+        }
+        if (debugInstruction) {
+            int i = 0;
+            for (Instruction ins : _travales) {
+                if (ins != null) {
+                    String flag = " ";
+                    if (listPostions.contains(i)) flag = "*";
+                    sb.append(String.format("%s%03d %s %s\n", flag, i++, ins.motion(), ins.dest().toString()));
+                }
             }
         }
         return sb.toString();
@@ -172,7 +231,6 @@ public class Controller {
         ditto(Motion.ROCK);
         ditto(Motion.BED);
         ditto(Motion.S);
-        makeInstruction(Motion.ENTER, 0, Location.inside); // there's some condition needed?
 
         _locationEntityList.add(_locIndex++, makeLocation(Location.outside,
                 WordConsts.LONG_OUTSIDE,
@@ -182,9 +240,14 @@ public class Controller {
         makeInstruction(Motion.WOODS, 0, Location.forest);
         ditto(Motion.E);
         ditto(Motion.W);
+        ditto(Motion.S);
         makeInstruction(Motion.UPSTREAM, 0, Location.slit);
         ditto(Motion.N);
         makeInstruction(Motion.HOUSE, 0, Location.road);
+        makeInstruction(Motion.ENTER, 300 + Object.GRATE.getIndex() + 100 * 0, Location.inside);
+        ditto(Motion.ENTER);
+        ditto(Motion.D);
+        ditto(Motion.IN);
 
         _locationEntityList.add(_locIndex++, makeLocation(Location.inside,
                 WordConsts.LONG_INSIDE,
@@ -369,10 +432,40 @@ public class Controller {
         return "";
     }
 
+    private boolean check(int condition) {
+
+        if (condition == 0) {
+            return true;
+        }
+        if (condition > 300) {
+            int x = condition;
+            int k = (x - 300) / 100;
+            int o = x - 300 - 100 * k;
+            Object obj = Object.getValue(o);
+            System.out.println(obj.toString());
+            for (ObjectEntity objectEntity : _objectEntityList) {
+                if(objectEntity.object() == obj) {
+                   if(objectEntity.getObjectState()  == ObjectEntity.ObjectState.STATE_OPEN) {
+                       return true;
+                   }
+                   else {
+                       return false;
+                   }
+                }
+             }
+
+
+
+
+        }
+        return false;
+    }
+
     public Location move(Motion motion, Location loc) {
         int start = -1;
         int end = -1;
         boolean stopit = false;
+        Location origLocation = Location.inhand;
 
 
         for (LocationEntity locationEntity : _locationEntityList) {
@@ -381,6 +474,7 @@ public class Controller {
             }
             if (locationEntity.location() == loc) {
 
+                origLocation = loc;
                 if (motion == Motion.LOOK) {
                     System.out.println(longDesc(loc));
                     return loc;
@@ -393,7 +487,13 @@ public class Controller {
 
         for (int i = start; i < end; i++) {
             if (_travales[i].motion() == motion) {
-                System.out.println(longDesc(_travales[i].dest()));
+                if (_travales[i].condition() != 0) {
+                    if (!check(_travales[i].condition())) {
+                        return origLocation;
+                    }
+                }
+                String shortDesc = shortDesc(_travales[i].dest());
+                if (!shortDesc.isEmpty()) System.out.println(shortDesc);
                 return _travales[i].dest();
             }
         }

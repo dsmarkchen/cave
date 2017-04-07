@@ -129,7 +129,7 @@ public class WordTable {
         _hashMap.put("keys", wordType, Object.KEYS.getIndex());
         _hashMap.put("lamp", wordType, Object.LAMP.getIndex());
         _hashMap.put("lante", wordType, Object.LAMP.getIndex());
-        _hashMap.put("head1", wordType, Object.LAMP.getIndex());
+        _hashMap.put("headl", wordType, Object.LAMP.getIndex());
 
         _hashMap.put("grate", wordType, Object.GRATE.getIndex());
         _hashMap.put("cage", wordType, Object.CAGE.getIndex());
@@ -146,18 +146,40 @@ public class WordTable {
         _hashMap.put("oyste", wordType, Object.OYSTER.getIndex());
 
         _hashMap.put("magaz", wordType, Object.MAG.getIndex());
+        _hashMap.put("issue", wordType, Object.MAG.getIndex());
+        _hashMap.put("splu", wordType, Object.MAG.getIndex());
+        _hashMap.put("\"spel", wordType, Object.MAG.getIndex());
+
+
         _hashMap.put("dwarf", wordType, Object.DWARF.getIndex());
+        _hashMap.put("dwarv", wordType, Object.DWARF.getIndex());
         _hashMap.put("knife", wordType, Object.KNIFE.getIndex());
+        _hashMap.put("knive", wordType, Object.KNIFE.getIndex());
 
         _hashMap.put("food", wordType, Object.FOOD.getIndex());
+        _hashMap.put("ratio", wordType, Object.FOOD.getIndex());
         _hashMap.put("bottl", wordType, Object.BOTTLE.getIndex());
+        _hashMap.put("jar", wordType, Object.BOTTLE.getIndex());
         _hashMap.put("water", wordType, Object.WATER.getIndex());
+        _hashMap.put("h2o", wordType, Object.WATER.getIndex());
 
 
         _hashMap.put("oil", wordType, Object.OIL.getIndex());
         _hashMap.put("mirro", wordType, Object.MIRROR.getIndex());
         _hashMap.put("plant", wordType, Object.PLANT.getIndex());
-    }
+        _hashMap.put("beans", wordType, Object.PLANT.getIndex());
+
+        _hashMap.put("stala", wordType, Object.STALACTITE.getIndex());
+        _hashMap.put("axe", wordType, Object.AXE.getIndex());
+
+        _hashMap.put("drawi", wordType, Object.ART.getIndex());
+        _hashMap.put("pirat", wordType, Object.PIRATE.getIndex());
+        _hashMap.put("drago", wordType, Object.DRAGON.getIndex());
+        _hashMap.put("chasm", wordType, Object.BRIDGE.getIndex());
+
+        _hashMap.put("troll", wordType, Object.TROLL.getIndex());
+        _hashMap.put("bear", wordType, Object.BEAR.getIndex());
+     }
 
     private void buildActions() {
         WordType wordType = WordType.action_type;
@@ -171,12 +193,30 @@ public class WordTable {
 
         _hashMap.put("open", wordType, Action.OPEN.getIndex());
         _hashMap.put("close", wordType, Action.CLOSE.getIndex());
+        _hashMap.put("lock", wordType, Action.CLOSE.getIndex());
+
+        _hashMap.put("on", wordType, Action.ON.getIndex());
+        _hashMap.put("off", wordType, Action.OFF.getIndex());
+
+        _hashMap.put("wave", wordType, Action.WAVE.getIndex());
+        _hashMap.put("shake", wordType, Action.WAVE.getIndex());
+        _hashMap.put("swing", wordType, Action.WAVE.getIndex());
+
+        _hashMap.put("calm", wordType, Action.CALM.getIndex());
+        _hashMap.put("placa", wordType, Action.CALM.getIndex());
+        _hashMap.put("tame", wordType, Action.CALM.getIndex());
 
         _hashMap.put("walk", wordType, Action.GO.getIndex());
         _hashMap.put("run", wordType, Action.GO.getIndex());
         _hashMap.put("trave", wordType, Action.GO.getIndex());
         _hashMap.put("go", wordType, Action.GO.getIndex());
+        _hashMap.put("proce", wordType, Action.GO.getIndex());
+        _hashMap.put("explo", wordType, Action.GO.getIndex());
+        _hashMap.put("goto", wordType, Action.GO.getIndex());
+        _hashMap.put("follo", wordType, Action.GO.getIndex());
 
+        _hashMap.put("nothi", wordType, Action.RELAX.getIndex());
+        _hashMap.put("pour", wordType, Action.POUR.getIndex());
 
         _hashMap.put("quit", wordType, Action.QUIT.getIndex());
     }
@@ -191,6 +231,9 @@ public class WordTable {
     }
 
     public int lookup(String s) {
+        if(s.length() > 5) {
+            s = s.substring(0,5);
+        }
         int result = _hashMap.get(s);
         return result;
     }

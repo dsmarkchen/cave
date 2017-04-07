@@ -5,6 +5,8 @@ import com.cave.word.WordType;
 import java.util.Scanner;
 
 public class Main {
+    private static final boolean _debugging = true;
+
     public static void main(String[] args) {
         Controller controller = new Controller();
         controller.build();
@@ -14,6 +16,9 @@ public class Main {
 
         Scanner reader = new Scanner(System.in);
         for (; ; ) {
+            if (_debugging) {
+                System.out.println("##" + controller.toString());
+            }
             String input = reader.nextLine();
             String word, rest = "";
             int l = input.indexOf(' ');
@@ -32,8 +37,14 @@ public class Main {
             if (type == WordType.motion_type) {
                 Motion motion = Motion.values()[meaning];
                 loc = controller.move(motion, loc);
+                System.out.println("__" + loc.toString() + "__");
                 ObjectsInLocation objsInLocation = controller.getObjectInLocation(loc);
                 System.out.println(controller.describeLocationObjectNotes(objsInLocation));
+
+
+                if (_debugging && objsInLocation != null) {
+                    System.out.println("##" + objsInLocation.toString());
+                }
             } else if (type == WordType.message_type) {
                 String s = wordTable.message(meaning);
                 System.out.println(s);
@@ -51,6 +62,11 @@ public class Main {
                     controller.take(loc, object);
                     ObjectsInLocation objsInLocation = controller.getObjectInLocation(loc);
                     System.out.println(controller.describeLocationObjectNotes(objsInLocation));
+
+
+                } else if (action == Action.OPEN) {
+                    System.out.println("Open?");
+                    controller.open(loc);
 
 
                 } else if (action == Action.GO) {

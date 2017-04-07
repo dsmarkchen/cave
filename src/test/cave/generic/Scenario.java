@@ -10,6 +10,7 @@ public class Scenario {
     private Location _expectedLocation;
     private String _shortDescription;
     private String _longDescription;
+    private boolean _conditionIsTrue;
 
     public String description() {
         return _description;
@@ -41,6 +42,7 @@ public class Scenario {
 
     public static class Builder {
         private String _description;
+        private boolean _conditionIsTrue;
         private Motion _givenMotion;
         private Location _givenLocation;
         private Location _expectedLocation;
@@ -61,13 +63,16 @@ public class Scenario {
             _givenLocation = location;
             return this;
         }
+        public Builder withCondition(boolean conditionIsTrue){
+            _conditionIsTrue = conditionIsTrue;
+            return this;
+        }
 
         public Builder expectDescription(String longDesc, String shortDesc) {
             _longDescription = longDesc;
             _shortDescription = shortDesc;
             return this;
         }
-
 
         public Builder expectLocation(Location location) {
             _expectedLocation = location;
@@ -87,5 +92,6 @@ public class Scenario {
         _expectedLocation = builder._expectedLocation;
         _longDescription = builder._longDescription;
         _shortDescription = builder._shortDescription;
+        _conditionIsTrue = builder._conditionIsTrue;
     }
 }
