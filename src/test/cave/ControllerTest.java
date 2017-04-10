@@ -8,7 +8,6 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import test.cave.generic.Scenario;
@@ -234,11 +233,11 @@ public class ControllerTest {
     @Test
     public void outsideEnterWithoutKeys() {
         Scenario scenario = new Scenario.Builder("move from outside to IN without Keys, stay outside")
-                        .withMotion(Motion.IN)
-                        .withLocation(Location.outside)
-                        .withCondition(false)
-                        .expectLocation(Location.outside)
-                        .build();
+                .withMotion(Motion.IN)
+                .withLocation(Location.outside)
+                .withCondition(false)
+                .expectLocation(Location.outside)
+                .build();
 
         System.out.println(scenario.description());
         Motion motion = scenario.givenMotion();
@@ -250,11 +249,11 @@ public class ControllerTest {
     @Test
     public void outsideEnterWithKeys() {
         Scenario scenario = new Scenario.Builder("move from outside to IN without Keys, stay outside")
-                        .withMotion(Motion.IN)
-                        .withLocation(Location.outside)
-                        .withCondition(true)
-                        .expectLocation(Location.inside)
-                        .build();
+                .withMotion(Motion.IN)
+                .withLocation(Location.outside)
+                .withCondition(true)
+                .expectLocation(Location.inside)
+                .build();
 
         System.out.println(scenario.description());
         Motion motion = scenario.givenMotion();
@@ -330,6 +329,41 @@ public class ControllerTest {
                         .expectLocation(Location.cobbles)
                         .build(),
         };
+    }
+
+    @Test
+    @Parameters(method = "getCobblesScenario")
+    @TestCaseName("{params}")
+    public void cobbles(Scenario scenario) {
+        System.out.println(scenario.description());
+        Motion motion = scenario.givenMotion();
+        Location location = scenario.givenLocation();
+        Location expected = scenario.expectedLocation();
+        assertEquals(expected, _controller.move(motion, location));
+    }
+    private Scenario[] getCobblesScenario() {
+        return new Scenario[]{
+                new Scenario.Builder("move out from cobbles to inside of grate.")
+                        .withMotion(Motion.OUT)
+                        .withLocation(Location.cobbles)
+                        .expectLocation(Location.inside)
+                        .build(),
+                new Scenario.Builder("move east from cobbles to inside of grate.")
+                        .withMotion(Motion.E)
+                        .withLocation(Location.cobbles)
+                        .expectLocation(Location.inside)
+                        .build(),
+                new Scenario.Builder("pit from cobbles to spit.")
+                        .withMotion(Motion.PIT)
+                        .withLocation(Location.cobbles)
+                        .expectLocation(Location.spit)
+                        .build(),
+                 new Scenario.Builder("move in from cobbles to debris.")
+                        .withMotion(Motion.IN)
+                        .withLocation(Location.cobbles)
+                        .expectLocation(Location.debris)
+                        .build(),
+          };
     }
 
 }

@@ -1,6 +1,5 @@
 package test.cave;
 
-import com.cave.Action;
 import com.cave.Motion;
 import com.cave.Object;
 import com.cave.WordTable;
@@ -11,7 +10,6 @@ import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import test.cave.WordTableScenario;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -41,7 +39,6 @@ public class WordTableTest {
 
         assertEquals(expected, motion.getIndex());
     }
-
 
 
     @Test
@@ -216,6 +213,36 @@ public class WordTableTest {
                         .withGivenWord("downs")
                         .thenExpectedFound(Motion.DOWNSTREAM)
                         .build(),
+
+                (new WordTableScenario.Builder("inward"))
+                        .withGivenWord("inwar")
+                        .thenExpectedFound(Motion.IN)
+                        .build(),
+                (new WordTableScenario.Builder("inside"))
+                        .withGivenWord("insid")
+                        .thenExpectedFound(Motion.IN)
+                        .build(),
+                (new WordTableScenario.Builder("in"))
+                        .withGivenWord("in")
+                        .thenExpectedFound(Motion.IN)
+                        .build(),
+                (new WordTableScenario.Builder("out"))
+                        .withGivenWord("out")
+                        .thenExpectedFound(Motion.OUT)
+                        .build(),
+                (new WordTableScenario.Builder("outside"))
+                        .withGivenWord("outsi")
+                        .thenExpectedFound(Motion.OUT)
+                        .build(),
+                (new WordTableScenario.Builder("exit"))
+                        .withGivenWord("exit")
+                        .thenExpectedFound(Motion.OUT)
+                        .build(),
+                (new WordTableScenario.Builder("leave"))
+                        .withGivenWord("leave")
+                        .thenExpectedFound(Motion.OUT)
+                        .build(),
+
                 (new WordTableScenario.Builder("enter "))
                         .withGivenWord("enter")
                         .thenExpectedFound(Motion.ENTER)
@@ -277,6 +304,35 @@ public class WordTableTest {
                         .withGivenWord("slab")
                         .thenExpectedFound(Motion.SLAB)
                         .build(),
+
+                (new WordTableScenario.Builder("bed"))
+                        .withGivenWord("bed")
+                        .thenExpectedFound(Motion.BED)
+                        .build(),
+                 (new WordTableScenario.Builder("passage"))
+                        .withGivenWord("passa")
+                        .thenExpectedFound(Motion.PASSAGE)
+                        .build(),
+                 (new WordTableScenario.Builder("tunnel"))
+                        .withGivenWord("tunne")
+                        .thenExpectedFound(Motion.PASSAGE)
+                        .build(),
+
+                (new WordTableScenario.Builder("debris"))
+                        .withGivenWord("debri")
+                        .thenExpectedFound(Motion.DEBRIS)
+                        .build(),
+
+                (new WordTableScenario.Builder("pit"))
+                        .withGivenWord("pit")
+                        .thenExpectedFound(Motion.PIT)
+                        .build(),
+                (new WordTableScenario.Builder("slit"))
+                        .withGivenWord("slit")
+                        .thenExpectedFound(Motion.SLIT)
+                        .build(),
+
+
                 (new WordTableScenario.Builder("awkwa"))
                         .withGivenWord("awkwa")
                         .thenExpectedFound(Motion.AWKWARD)
@@ -308,8 +364,6 @@ public class WordTableTest {
         };
         return wordTableScenarios;
     }
-
-
 
 
 }

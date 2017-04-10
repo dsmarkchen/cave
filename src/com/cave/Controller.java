@@ -101,9 +101,10 @@ public class Controller {
                 break;
             }
         }
-        if(target != Object.NOTHING)
+        if (target != Object.NOTHING)
             setObjectOpen(target);
     }
+
     private void setObjectOpen(Object object) {
         Iterator<ObjectEntity> iter = _objectEntityList.iterator();
         while (iter.hasNext()) {
@@ -115,17 +116,18 @@ public class Controller {
     }
 
 
-
-
-    public void take(Location place, Object obj) {
+    public boolean take(Location place, Object obj) {
+        boolean taken = false;
         Iterator<ObjectsInLocation> iter = _objectsInLocationList.iterator();
         while (iter.hasNext()) {
             ObjectsInLocation res = iter.next();
             if (res.place() == place) {
                 res.take(obj);
                 updateTakenState(obj);
+                taken = true;
             }
         }
+        return taken;
     }
 
     private void updateTakenState(Object object) {
@@ -186,7 +188,7 @@ public class Controller {
 
         StringBuilder sb = new StringBuilder();
 
-        if(debugLocationEntityList) {
+        if (debugLocationEntityList) {
             for (LocationEntity loc : _locationEntityList) {
                 sb.append(loc.toString() + "\n");
                 listPostions.add(loc.start());
@@ -268,6 +270,10 @@ public class Controller {
                 WordConsts.SHORT_COBBLES,
                 0,
                 q));
+        makeInstruction(Motion.OUT, 0, Location.inside);
+        ditto(Motion.E);
+        makeInstruction(Motion.IN, 0, Location.debris);
+        makeInstruction(Motion.PIT, 0, Location.spit);
 
 
         _locationEntityList.add(_locIndex++, makeLocation(Location.debris,
@@ -287,6 +293,19 @@ public class Controller {
                 WordConsts.SHORT_BIRD,
                 0,
                 q));
+
+        _locationEntityList.add(_locIndex++, makeLocation(Location.spit,
+                "At your feet is a small pit breathing traces of white mist.  An east\n" +
+                        " passage ends here except for a small crack leading on.",
+                "You're at top of small pit.",
+                0,
+                q));
+        makeInstruction(Motion.DEBRIS, 0, Location.debris);
+        makeInstruction(Motion.ENTRANCE, 0, Location.inside);
+        makeInstruction(Motion.PASSAGE, 0, Location.bird);
+        makeInstruction(Motion.D, 200, Location.neck);
+
+
 
         buildRestLocations();
     }
@@ -444,17 +463,14 @@ public class Controller {
             Object obj = Object.getValue(o);
             System.out.println(obj.toString());
             for (ObjectEntity objectEntity : _objectEntityList) {
-                if(objectEntity.object() == obj) {
-                   if(objectEntity.getObjectState()  == ObjectEntity.ObjectState.STATE_OPEN) {
-                       return true;
-                   }
-                   else {
-                       return false;
-                   }
+                if (objectEntity.object() == obj) {
+                    if (objectEntity.getObjectState() == ObjectEntity.ObjectState.STATE_OPEN) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
-             }
-
-
+            }
 
 
         }

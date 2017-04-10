@@ -57,6 +57,13 @@ public class WordTable {
         _hashMap.put("nw", wordType, NW.getIndex());
         _hashMap.put("sw", wordType, SW.getIndex());
 
+        _hashMap.put("insid", wordType, Motion.IN.getIndex());
+        _hashMap.put("inwar", wordType, Motion.IN.getIndex());
+        _hashMap.put("in", wordType, Motion.IN.getIndex());
+        _hashMap.put("out", wordType, Motion.OUT.getIndex());
+        _hashMap.put("outsi", wordType, Motion.OUT.getIndex());
+        _hashMap.put("leave", wordType, Motion.OUT.getIndex());
+        _hashMap.put("exit", wordType, Motion.OUT.getIndex());
 
         _hashMap.put("downs", wordType, Motion.DOWNSTREAM.getIndex());
         _hashMap.put("enter", wordType, Motion.ENTER.getIndex());
@@ -84,6 +91,7 @@ public class WordTable {
         _hashMap.put("rock", wordType, Motion.ROCK.getIndex());
         _hashMap.put("slab", wordType, Motion.SLAB.getIndex());
         _hashMap.put("bed", wordType, Motion.BED.getIndex());
+        _hashMap.put("tunne", wordType, Motion.PASSAGE.getIndex());
         _hashMap.put("passa", wordType, Motion.PASSAGE.getIndex());
         _hashMap.put("caver", wordType, Motion.CAVERN.getIndex());
         _hashMap.put("canyo", wordType, Motion.CANYON.getIndex());
@@ -97,6 +105,7 @@ public class WordTable {
         _hashMap.put("shell", wordType, Motion.SHELL.getIndex());
         _hashMap.put("barre", wordType, Motion.BARREN.getIndex());
         _hashMap.put("broke", wordType, Motion.BROKEN.getIndex());
+
         _hashMap.put("debri", wordType, Motion.DEBRIS.getIndex());
 
         _hashMap.put("view", wordType, Motion.VIEW.getIndex());

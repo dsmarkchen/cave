@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Controller controller = new Controller();
         controller.build();
+        Location tmpLoc;
         Location loc = Location.road;
         System.out.println(controller.longDesc(loc));
         WordTable wordTable = new WordTable();
@@ -36,7 +37,10 @@ public class Main {
             int meaning = wordTable.meaning(h);
             if (type == WordType.motion_type) {
                 Motion motion = Motion.values()[meaning];
-                loc = controller.move(motion, loc);
+                tmpLoc = controller.move(motion, loc);
+                if(tmpLoc != Location.inhand) {
+                    loc = tmpLoc;
+                }
                 System.out.println("__" + loc.toString() + "__");
                 ObjectsInLocation objsInLocation = controller.getObjectInLocation(loc);
                 System.out.println(controller.describeLocationObjectNotes(objsInLocation));
@@ -45,7 +49,18 @@ public class Main {
                 if (_debugging && objsInLocation != null) {
                     System.out.println("##" + objsInLocation.toString());
                 }
-            } else if (type == WordType.message_type) {
+            }  else if (type == WordType.object_type) {
+                    Object object = Object.values()[wordTable.meaning(h)];
+                    if(controller.take(loc, object)) {
+                        ObjectsInLocation objsInLocation = controller.getObjectInLocation(loc);
+                        System.out.println(controller.describeLocationObjectNotes(objsInLocation));
+                    }
+                    else {
+                        System.out.println("I see no " + object.toString() + " here.");
+                    }
+
+            }
+            else if (type == WordType.message_type) {
                 String s = wordTable.message(meaning);
                 System.out.println(s);
 
@@ -58,10 +73,18 @@ public class Main {
                     if (!rest.isEmpty()) {
                         h = wordTable.lookup(rest);
                     }
+                    else {
+                        System.out.println("Take what?");
+                        continue;
+                    }
                     Object object = Object.values()[wordTable.meaning(h)];
-                    controller.take(loc, object);
-                    ObjectsInLocation objsInLocation = controller.getObjectInLocation(loc);
-                    System.out.println(controller.describeLocationObjectNotes(objsInLocation));
+                    if(controller.take(loc, object)) {
+                        ObjectsInLocation objsInLocation = controller.getObjectInLocation(loc);
+                        System.out.println(controller.describeLocationObjectNotes(objsInLocation));
+                    }
+                    else {
+                        System.out.println("I see no " + object.toString() + " here.");
+                    }
 
 
                 } else if (action == Action.OPEN) {
